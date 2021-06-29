@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/modena">
+
+	<div class="Animated05" id="layout-menu-cover">
+		<h:form id="menuform">
+			<pm:menu>
+				<p:submenu id="rm_sm1" label="#{msgs.label_gestionarUsuarios}"
+					icon="pi pi-list" rendered="#{p:ifAnyGranted('ADMIN')}">
+					<p:menuitem id="rm" value="#{msgs.label_listUser}" icon="pi pi-user"
+						url="/security-users" />
+				</p:submenu>
+				<p:submenu id="rm_sm2" label="#{msgs.label_gestionarClases}"
+					icon="pi pi-list">
+					<p:menuitem id="rm_lnk2211" value="#{msgs.label_listPais}"
+						icon="fa fa-globe" url="/country-countries" />
+					<p:menuitem id="rm_lnk2212" value="#{msgs.label_listFormaPago}"
+						icon="fa  fa-credit-card-alt" url="/payment-payments" />
+					<p:menuitem id="rm_lnk2213" value="#{msgs.label_listEstado}"
+						icon="pi pi-check-square" url="/state-statuses" />
+					<p:menuitem id="rm_lnk2214" value="#{msgs.label_listMarca}"
+						icon="pi pi-tag" url="/brand-brands" />
+					<p:menuitem id="rm_lnk2215" value="#{msgs.label_listChofer}"
+						icon="fa fa-briefcase" url="/driver-drivers" />
+					<p:menuitem id="rm_lnk2216" value="#{msgs.label_listModelo}"
+						icon="pi pi-flag" url="/model-models" />
+					<p:menuitem id="rm_lnk2217" value="#{msgs.label_listAuto}"
+						icon="fa fa-car" url="/car-cars" />
+					<p:menuitem id="rm_lnk2218" value="#{msgs.label_listTurista}"
+						icon="fa fa-plane" url="/tourist-tourists" />
+					<p:menuitem id="rm_lnk2219" value="#{msgs.label_listContrato}"
+						icon="fa fa-line-chart" url="/contract-contracts" />
+				</p:submenu>
+
+				<p:submenu id="rm_sm3" label="#{msgs.label_reportes}" icon="pi pi-list">
+					<p:menuitem id="rm_lnk2220" value="#{msgs.label_cantTuristasXPais}"
+						icon="icon-link" url="/touristsByCountry" />
+					<p:menuitem id="rm_lnk2221"
+						value="#{msgs.label_cantidadAutosXMarca}" icon="icon-link"
+						url="/carsByBrand" />
+				</p:submenu>
+
+				<p:separator />
+			</pm:menu>
+		</h:form>
+
+	</div>
+
+</ui:composition>

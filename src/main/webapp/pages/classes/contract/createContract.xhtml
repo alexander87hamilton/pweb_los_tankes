@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+
+	<p:panelGrid columns="1" layout="grid" style="width:100%;">
+		<h:panelGroup>
+			<h:form prependId="false">
+				<div class="ui-fluid">
+					<div class="Container50 Responsive50">
+						<div class="ContainerIndent">
+							<h2 class="BigTopic">#{msgs.labelData}</h2>
+							<p:panelGrid columns="1" styleClass="ui-panelgrid-blank"
+								layout="grid">
+
+								<p:outputLabel value="#{msgs.label_contratoTurista}"
+									for="turistac" />
+								<p:autoComplete id="turistac" dropdown="true"
+									value="#{contratoBean.contrato.turista}"
+									completeMethod="#{turistaBean.completeTurista}" var="turista"
+									itemLabel="#{turista.nombre}" itemValue="#{turista}"
+									converter="EntityConverter" forceSelection="true"
+									required="true" />
+
+								<p:outputLabel value="#{msgs.labelFechaI}" for="fechai" />
+								<p:calendar id="fechai" value="#{contratoBean.date}"
+									required="true"
+									requiredMessage="#{msgs.label_contratoFechasRequeridas}" />
+
+								<p:outputLabel value="#{msgs.labelFechaF}" for="fechaf" />
+								<p:calendar id="fechaf" value="#{contratoBean.date2}"
+									required="true"
+									requiredMessage="#{msgs.label_contratoFechasRequeridas}" />
+
+								<p:outputLabel value="#{msgs.label_formaPagoName}"
+									for="formapagoC" />
+								<p:autoComplete id="formapagoC" dropdown="true"
+									value="#{contratoBean.contrato.formaPago}"
+									completeMethod="#{formaPagoBean.completeFormaPago}"
+									var="formapago" itemLabel="#{formapago.nombre}"
+									itemValue="#{formapago}" converter="EntityConverter"
+									forceSelection="true" required="true" />
+
+								<p:outputLabel value="#{msgs.label_contratoChofer}"
+									for="choferc" />
+								<p:autoComplete id="choferc" dropdown="true"
+									value="#{contratoBean.contrato.chofer}"
+									completeMethod="#{choferBean.completeChofer}" var="chofer"
+									itemLabel="#{chofer.nombre}" itemValue="#{chofer}"
+									converter="EntityConverter" forceSelection="true" />
+
+								<p:outputLabel value="#{msgs.label_contratoAuto}" for="autoc" />
+								<p:autoComplete id="autoc" dropdown="true"
+									value="#{contratoBean.contrato.auto}"
+									completeMethod="#{autoBean.completeAuto}" var="auto"
+									itemLabel="#{auto.modelo.marca.nombre} #{auto.modelo.nombre}"
+									itemValue="#{auto}" converter="EntityConverter"
+									forceSelection="true" required="true" />
+
+							</p:panelGrid>
+						</div>
+					</div>
+					<div class="Separator"></div>
+
+					<div class="Wid50 Fright Responsive50">
+						<p:commandButton styleClass="CyanButton" value="#{msgs.labelSave}"
+							action="#{contratoBean.save}" update="contratoTabView"></p:commandButton>
+					</div>
+				</div>
+			</h:form>
+
+		</h:panelGroup>
+	</p:panelGrid>
+</ui:composition>
+</html>

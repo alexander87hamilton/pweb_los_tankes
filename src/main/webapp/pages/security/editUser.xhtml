@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+
+	<p:panelGrid columns="1" layout="grid" style="width:100%;">
+		<h:panelGroup>
+			<h:form prependId="false">
+				<div class="ui-fluid">
+					<div class="Container50 Responsive50">
+						<div class="ContainerIndent">
+							<h2 class="BigTopic">#{msgs.labelData}</h2>
+							<p:panelGrid columns="1" styleClass="ui-panelgrid-blank"
+								rendered="#{userBean.selectedUser != null}" layout="grid">
+								
+								<p:inputText id="id" type="hidden"
+									value="#{userBean.selectedUser.id}"
+									placeholder="#{userBean.selectedUser.id}"></p:inputText>
+								
+								<p:outputLabel value="Nombre completo" for="fullname" />
+								<p:inputText id="fullname"
+									value="#{userBean.selectedUser.fullname}"
+									placeholder="#{userBean.selectedUser.fullname}"></p:inputText>
+
+								<p:outputLabel value="#{msgs.label_username}" for="username" />
+								<p:inputText id="username"
+									value="#{userBean.selectedUser.username}"
+									placeholder="#{userBean.selectedUser.username}"></p:inputText>
+
+								<p:outputLabel value="#{msgs.label_password}" for="password" />
+								<p:password id="password"
+									value="#{userBean.selectedUser.password}"
+									placeholder="#{userBean.selectedUser.password}" feedback="true"></p:password>
+
+								<p:outputLabel value="#{msgs.label_email}" for="email" />
+								<h:panelGroup>
+									<p:inputText id="email" value="#{userBean.selectedUser.email}"
+										placeholder="#{userBean.selectedUser.email}"
+										validatorMessage="#{msgs.label_email_validate}">
+										<f:validateRegex
+											pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+									</p:inputText>
+									<p:message for="email" display="tooltip"></p:message>
+								</h:panelGroup>
+
+							</p:panelGrid>
+						</div>
+					</div>
+					<div class="Container50 Responsive50">
+						<div class="ContainerIndent">
+							<h2 class="BigTopic">Roles</h2>
+							<p:selectManyCheckbox layout="responsive" columns="3" value="#{userBean.rolesName}"  >
+								<f:selectItems value="#{userBean.rol}" var="rol" itemLabel="#{rol.roleName}"
+								 itemValue="#{rol.id}" />
+                            </p:selectManyCheckbox>
+						</div>
+					</div>
+					<div class="Separator"></div>
+
+					<div class="Wid50 Fright Responsive50">
+						<p:commandButton styleClass="CyanButton" value="#{msgs.labelSave}" action="#{userBean.update}"
+							update="userTabView"></p:commandButton>
+					</div>
+				</div>
+			</h:form>
+      </h:panelGroup>
+	</p:panelGrid>
+</ui:composition>
+</html>

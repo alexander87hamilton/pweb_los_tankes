@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+
+	<p:panelGrid columns="1" layout="grid" style="width:100%;">
+		<h:panelGroup>
+			<h:form prependId="false">
+				<div class="ui-fluid">
+					<div class="Container50 Responsive50">
+						<div class="ContainerIndent">
+							<h2 class="BigTopic">#{msgs.labelData}</h2>
+							<p:panelGrid columns="1" styleClass="ui-panelgrid-blank"
+								rendered="#{autoBean.selectedAuto != null}" layout="grid">
+
+								<p:inputText id="autoplaca"
+									value="#{autoBean.selectedAuto.placa}" type="hidden"></p:inputText>
+
+								<p:outputLabel value="#{msgs.label_autoMarca}" for="marca2" />
+								<p:selectOneMenu id="marca2" value="#{autoBean.marca}"
+									required="true">
+									<p:ajax listener="#{modeloBean.onMarcaChange(autoBean.marca)}"
+										update="modelo2" />
+									<f:selectItem itemLabel="#{msgs.labelSelectOne}" itemValue="" />
+									<f:selectItems value="#{marcaBean.marcaList}" var="marca"
+										itemLabel="#{marca.nombre}" itemValue="#{marca.nombre}" />
+
+								</p:selectOneMenu>
+
+								<p:outputLabel value="#{msgs.label_autoModelo}" for="modelo2" />
+								<p:selectOneMenu id="modelo2"
+									value="#{autoBean.selectedAuto.modelo}"
+									converter="EntityConverter" required="true">
+									<f:selectItem itemLabel="#{msgs.labelSelectOne}" itemValue="" />
+									<f:selectItems value="#{modeloBean.modelosSelected}"
+										var="modelo" itemLabel="#{modelo.nombre}"
+										itemValue="#{modelo}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="#{msgs.label_autoEstado}" for="estado2" />
+								<p:selectOneMenu id="estado2"
+									value="#{autoBean.selectedAuto.estado}"
+									converter="EntityConverter">
+									<f:selectItem itemLabel="#{msgs.labelSelectOne}" itemValue="" />
+									<f:selectItems value="#{estadoBean.estadoList}" var="estado"
+										itemLabel="#{estado.nombre}" itemValue="#{estado}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="#{msgs.label_autoCantKm}" for="autoCantKm" />
+								<p:inputText id="autoCantKm"
+									value="#{autoBean.selectedAuto.cantKm}" type="number"
+									minValue="0">
+								</p:inputText>
+
+								<p:outputLabel value="#{msgs.label_autoColor}" for="color" />
+								<p:selectOneMenu id="color"
+									value="#{autoBean.selectedAuto.color}" required="true">
+									<f:selectItem itemLabel="" itemValue="#{null}" />
+									<f:selectItem itemLabel="Amarillo" itemValue="Amarillo" />
+									<f:selectItem itemLabel="Azul" itemValue="Azul" />
+									<f:selectItem itemLabel="Blanco" itemValue="Blanco" />
+									<f:selectItem itemLabel="Gris" itemValue="Gris" />
+									<f:selectItem itemLabel="Marrón" itemValue="Marrón" />
+									<f:selectItem itemLabel="Naranja" itemValue="Naranja" />
+									<f:selectItem itemLabel="Negro" itemValue="Negro" />
+									<f:selectItem itemLabel="Rojo" itemValue="Rojo" />
+									<f:selectItem itemLabel="Rosado" itemValue="Rosado" />
+									<f:selectItem itemLabel="Verde" itemValue="Verde" />
+									<f:selectItem itemLabel="Violeta" itemValue="Violeta" />
+								</p:selectOneMenu>
+
+							</p:panelGrid>
+						</div>
+					</div>
+					<div class="Separator"></div>
+
+					<div class="Wid50 Fright Responsive50">
+						<p:commandButton styleClass="CyanButton" value="#{msgs.labelSave}"
+							action="#{autoBean.update}" update="autoTabView"></p:commandButton>
+					</div>
+				</div>
+			</h:form>
+
+		</h:panelGroup>
+	</p:panelGrid>
+</ui:composition>
+</html>

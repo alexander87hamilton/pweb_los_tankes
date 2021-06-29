@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<!-- TOPBAR START -->
+	<div id="layout-topbar">
+		<a id="mobile-menu-button"> <span class="ButtonLine"
+			id="ButtonLine1"></span> <span class="ButtonLine" id="ButtonLine2"></span>
+			<span class="ButtonLine" id="ButtonLine3"></span>
+		</a> <a href="/modena/dashboard.xhtml" id="logo">
+		</a> <a id="show-top-menu" class="ShowOnMobile ripplelink"><i
+			class="icon-more_vert" id="active"></i><i class="icon-close DispNone"
+			id="passive"></i> </a>
+
+		<ul id="top-menu">
+			<li><a class="ripplelink"><i class="icon-flag2"></i> <span
+					class="ShowOnMobile">System</span></a>
+				<ul>
+
+					<li><h:form>
+							<li><p:commandButton ajax="false"
+									action="#{languageBean.changeLanguage('es')}"
+									value="Cambiar lenguaje a Español"></p:commandButton></li>
+							<li><p:commandButton ajax="false"
+									action="#{languageBean.changeLanguage('en')}"
+									value="Change language to English"></p:commandButton></li>
+						</h:form></li>
+				</ul></li>
+			<li><a class="ripplelink"><i class="icon-power"></i> <span
+					class="ShowOnMobile">System</span></a>
+				<ul>
+					<li><a href="/logout"><span class="Red"><i
+								class="icon-vpn_key Fs30 DispBlock"></i> Logout</span></a></li>
+				</ul></li>
+		</ul>
+	</div>
+
+</ui:composition>

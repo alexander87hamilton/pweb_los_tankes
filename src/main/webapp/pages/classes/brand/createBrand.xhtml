@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition >
+
+	<p:panelGrid columns="1" layout="grid" style="width:100%;">
+		<h:panelGroup>
+			<h:form prependId="false">
+				<div class="ui-fluid">
+					<div class="Container50 Responsive50">
+						<div class="ContainerIndent">
+							<h2 class="BigTopic">#{msgs.labelData}</h2>
+							<p:panelGrid columns="1" styleClass="ui-panelgrid-blank"
+								layout="grid">
+
+								<p:outputLabel value="#{msgs.label_marcaName}" for="marcaname" />
+								<p:inputText id="marcaname" value="#{marcaBean.marca.nombre}" required="true"></p:inputText>
+								
+							</p:panelGrid>
+						</div>
+					</div>
+					<div class="Separator"></div>
+					
+					<div class="Wid50 Fright Responsive50"><p:commandButton styleClass="CyanButton" value="#{msgs.labelSave}" action="#{marcaBean.save}" update="marcaTabView"></p:commandButton></div>
+				</div>
+			</h:form>
+
+		</h:panelGroup>
+	</p:panelGrid>
+</ui:composition>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/pages/template/layout.xhtml">
+
+	<ui:define name="subheader">
+        #{msgs.label_cantTuristasXPais}
+    </ui:define>
+	<ui:define name="content">
+
+		<div class="Container100">
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect  ">
+					<div class="Container100">
+						<div class="ContainerIndent">
+							<p:tabView id="cantTuristasXPaisTabView" >
+								<p:tab title="#{msgs.label_cantTuristasXPais}">
+									<h:form>
+										<div class="EmptyBox30"></div>
+										<p:dataTable id="tbl" var="cantTuristasXPais" value="#{turistaBean.cantTuristasXPais}"
+											rows="10" paginator="true" rendered="true"
+											paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+
+											<f:facet name="{Exporters}">
+												<h:commandLink>
+													<i class="fa fa-fw fa-file-excel-o" />
+													<p:dataExporter type="xls" target="tbl" fileName="paiss" />
+												</h:commandLink>
+
+												<h:commandLink>
+													<i class="fa fa-fw fa-file-pdf-o" />
+													<p:dataExporter type="pdf" target="tbl" fileName="paiss" />
+												</h:commandLink>
+											</f:facet>
+
+											<p:column headerText="#{msgs.label_paisName}">
+												<h:outputText value="#{cantTuristasXPais.pais}" />
+											</p:column>
+											
+											<p:column headerText="#{msgs.label_cantidadTuristas}">
+												<h:outputText value="#{cantTuristasXPais.cantTuristas}" />
+											</p:column>
+										</p:dataTable>
+									</h:form>
+								</p:tab>
+							</p:tabView>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/pages/template/layout.xhtml">
+
+	<ui:define name="subheader">
+        #{msgs.labelListChofer}
+    </ui:define>
+	<ui:define name="content">
+
+		<div class="Container100">
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect  ">
+					<div class="Container100">
+						<div class="ContainerIndent">
+							<p:tabView id="choferTabView" binding="#{choferBean.tabChofers}"
+								activeIndex="#{choferBean.activeIndexTab}">
+								<p:ajax event="tabClose" listener="#{choferBean.onTabClose}" />
+								<p:tab title="#{msgs.label_listChofer}">
+									<h:form>
+										<p:commandButton value="Nuevo" styleClass="Right CyanButton"
+											action="#{choferBean.newChofer}"></p:commandButton>
+										<div class="EmptyBox30"></div>
+										<p:dataTable id="tbl" var="chofer"
+											value="#{choferBean.choferList}" rows="10" paginator="true"
+											rendered="true"
+											paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+
+											<f:facet name="{Exporters}">
+												<h:commandLink>
+													<i class="fa fa-fw fa-file-excel-o" />
+													<p:dataExporter type="xls" target="tbl" fileName="chofers" />
+												</h:commandLink>
+
+												<h:commandLink>
+													<i class="fa fa-fw fa-file-pdf-o" />
+													<p:dataExporter type="pdf" target="tbl" fileName="chofers" />
+												</h:commandLink>
+											</f:facet>
+
+											<p:column headerText="#{msgs.label_choferCI}">
+												<h:outputText value="#{chofer.id}" />
+											</p:column>
+
+											<p:column headerText="#{msgs.label_choferName}">
+												<h:outputText value="#{chofer.nombre}" />
+											</p:column>
+
+											<p:column headerText="#{msgs.label_choferDireccion}">
+												<h:outputText value="#{chofer.direccion}" />
+											</p:column>
+
+											<p:column headerText="#{msgs.label_choferCategoria}">
+												<h:outputText value="#{chofer.categoria}" />
+											</p:column>
+											<p:column headerText="Acciones">
+												<p:commandButton icon="fa fa-edit Fs15"
+													update="choferTabView"
+													styleClass="BlueTextButton CyanModena "
+													action="#{choferBean.editChofer}">
+													<f:setPropertyActionListener value="#{chofer}"
+														target="#{choferBean.selectedChofer}" />
+												</p:commandButton>
+												<p:commandButton icon="fa fa-close Fs15"
+													update="choferTabView"
+													styleClass="BlueTextButton CyanModena "
+													action="#{choferBean.delete}">
+													<p:confirm header="#{msgs.label_Confirmation}"
+														message="#{msgs.label_Sure}" icon="ui-icon-alert" />
+													<f:setPropertyActionListener value="#{chofer}"
+														target="#{choferBean.selectedChofer}" />
+												</p:commandButton>
+												<p:confirmDialog global="true" showEffect="fade"
+													responsive="true" closeOnEscape="true" hideEffect="fade">
+													<p:commandButton value="#{msgs.label_Yes}" type="button"
+														styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+													<p:commandButton value="#{msgs.label_No}" type="button"
+														styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+												</p:confirmDialog>
+											</p:column>
+										</p:dataTable>
+									</h:form>
+								</p:tab>
+							</p:tabView>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/pages/template/layout.xhtml">
+
+	<ui:define name="subheader">
+        #{msgs.label_ListOfCountry}
+    </ui:define>
+	<ui:define name="content">
+
+		<div class="Container100">
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect  ">
+					<div class="Container100">
+						<div class="ContainerIndent">
+							<p:tabView id="paisTabView" binding="#{paisBean.tabPaiss}"
+								activeIndex="#{paisBean.activeIndexTab}" >
+								<p:ajax event="tabClose" listener="#{paisBean.onTabClose}" />
+								<p:tab title="#{msgs.label_listPais}">
+									<h:form>
+										<p:commandButton value="#{msgs.label_New}" styleClass="Right CyanButton "
+											action="#{paisBean.newPais}"></p:commandButton>
+										<div class="EmptyBox30"></div>
+										<p:dataTable id="tbl" var="pais" value="#{paisBean.paisList}"
+											rows="10" paginator="true" rendered="true"
+											paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+
+											<f:facet name="{Exporters}">
+												<h:commandLink>
+													<i class="fa fa-fw fa-file-excel-o" />
+													<p:dataExporter type="xls" target="tbl" fileName="paiss" />
+												</h:commandLink>
+
+												<h:commandLink>
+													<i class="fa fa-fw fa-file-pdf-o" />
+													<p:dataExporter type="pdf" target="tbl" fileName="paiss" />
+												</h:commandLink>
+											</f:facet>
+
+											<p:column headerText="#{msgs.label_paisName}">
+												<h:outputText value="#{pais.nombre}" />
+											</p:column>
+
+											<p:column headerText="#{msgs.labelActions}">
+												<p:commandButton icon="fa fa-edit Fs15" update="paisTabView"
+													styleClass="BlueTextButton RaisedButton"
+													action="#{paisBean.editPais}">
+													<f:setPropertyActionListener value="#{pais}"
+														target="#{paisBean.selectedPais}" />
+												</p:commandButton>
+												<p:commandButton icon="fa fa-close Fs15"
+													update="paisTabView"
+													styleClass="BlueTextButton RaisedButton"
+													action="#{paisBean.delete}">
+													<p:confirm header="#{msgs.label_Confirmation}"
+														message="#{msgs.label_Sure}" icon="ui-icon-alert" />
+													<f:setPropertyActionListener value="#{pais}"
+														target="#{paisBean.selectedPais}" />
+												</p:commandButton>
+												<p:confirmDialog global="true" showEffect="fade" responsive="true" closeOnEscape="true"
+													hideEffect="fade">
+													<p:commandButton value="#{msgs.label_Yes}" type="button"
+														styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+													<p:commandButton value="#{msgs.label_No}" type="button"
+														styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+												</p:confirmDialog>
+											</p:column>
+										</p:dataTable>
+									</h:form>
+								</p:tab>
+							</p:tabView>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

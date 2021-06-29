@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/pages/template/layout.xhtml">
+
+	<ui:define name="subheader">
+        #{msgs.labelListofModels}
+    </ui:define>
+	<ui:define name="content">
+
+		<div class="Container100">
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect  ">
+					<div class="Container100">
+						<div class="ContainerIndent">
+							<p:tabView id="modeloTabView" binding="#{modeloBean.tabModelos}"
+								activeIndex="#{modeloBean.activeIndexTab}">
+								<p:ajax event="tabClose" listener="#{modeloBean.onTabClose}" />
+								<p:tab title="#{msgs.label_listModelo}">
+									<h:form>
+										<p:commandButton value="#{msgs.label_New}"
+											styleClass="Right CyanButton"
+											action="#{modeloBean.newModelo}"></p:commandButton>
+										<div class="EmptyBox30"></div>
+										<p:dataTable id="tbl" var="modelo"
+											value="#{modeloBean.modeloList}" rows="10" paginator="true"
+											rendered="true"
+											paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+
+											<f:facet name="{Exporters}">
+												<h:commandLink>
+													<i class="fa fa-fw fa-file-excel-o" />
+													<p:dataExporter type="xls" target="tbl" fileName="modelos" />
+												</h:commandLink>
+
+												<h:commandLink>
+													<i class="fa fa-fw fa-file-pdf-o" />
+													<p:dataExporter type="pdf" target="tbl" fileName="modelos" />
+												</h:commandLink>
+											</f:facet>
+
+											<p:column headerText="#{msgs.label_modeloName}">
+												<h:outputText value="#{modelo.nombre}" />
+											</p:column>
+
+											<p:column headerText="#{msgs.label_modeloMarca}">
+												<h:outputText value="#{modelo.marca.nombre}" />
+											</p:column>
+
+											<p:column headerText="#{msgs.label_modeloTarifa}">
+												<h:outputText value="#{modelo.tarifa}" />
+											</p:column>
+
+
+											<p:column headerText="#{msgs.labelActions}">
+												<p:commandButton icon="fa fa-edit Fs15"
+													update="modeloTabView"
+													styleClass="BlueTextButton CyanModena "
+													action="#{modeloBean.editModelo}">
+													<f:setPropertyActionListener value="#{modelo}"
+														target="#{modeloBean.selectedModelo}" />
+												</p:commandButton>
+												<p:commandButton icon="fa fa-close Fs15"
+													update="modeloTabView"
+													styleClass="BlueTextButton CyanModena "
+													action="#{modeloBean.delete}">
+													<p:confirm header="#{msgs.label_Confirmation}"
+														message="#{msgs.label_Sure}" icon="ui-icon-alert" />
+													<f:setPropertyActionListener value="#{modelo}"
+														target="#{modeloBean.selectedModelo}" />
+												</p:commandButton>
+
+												<p:confirmDialog global="true" showEffect="fade"
+													hideEffect="fade">
+													<p:commandButton value="#{msgs.label_Yes}" type="button"
+														styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+													<p:commandButton value="#{msgs.label_No}" type="button"
+														styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+												</p:confirmDialog>
+
+											</p:column>
+										</p:dataTable>
+									</h:form>
+								</p:tab>
+							</p:tabView>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

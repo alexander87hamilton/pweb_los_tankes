@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/pages/template/layout.xhtml">
+
+	<ui:define name="subheader">
+        #{msgs.labelListofCars}
+    </ui:define>
+	<ui:define name="content">
+
+		<div class="Container100">
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect  ">
+					<div class="Container100">
+						<div class="ContainerIndent">
+							<p:tabView id="autoTabView" binding="#{autoBean.tabAutos}"
+								activeIndex="#{autoBean.activeIndexTab}">
+								<p:ajax event="tabClose" listener="#{autoBean.onTabClose}" />
+								<p:tab title="#{msgs.label_listAuto}">
+									<h:form>
+										<p:commandButton value="#{msgs.label_New}" styleClass="Right CyanButton"
+											action="#{autoBean.newAuto}"></p:commandButton>
+										<div class="EmptyBox30"></div>
+										<p:dataTable id="tbl" var="auto" value="#{autoBean.autoList}"
+											rows="10" paginator="true" rendered="true"
+											paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+
+											<f:facet name="{Exporters}">
+												<h:commandLink>
+													<i class="fa fa-fw fa-file-excel-o" />
+													<p:dataExporter type="xls" target="tbl" fileName="autos" />
+												</h:commandLink>
+
+												<h:commandLink>
+													<i class="fa fa-fw fa-file-pdf-o" />
+													<p:dataExporter type="pdf" target="tbl" fileName="autos" />
+												</h:commandLink>
+											</f:facet>
+
+											<p:column headerText="#{msgs.label_autoPlaca}">
+												<h:outputText value="#{auto.placa}" />
+											</p:column>
+
+											<p:column headerText="#{msgs.label_autoMarca}">
+												<h:outputText value="#{auto.modelo.marca.nombre}" />
+											</p:column>
+
+											<p:column headerText="#{msgs.label_autoModelo}">
+												<h:outputText value="#{auto.modelo.nombre}" />
+											</p:column>
+
+
+											<p:column headerText="#{msgs.label_autoCantKm}">
+												<h:outputText value="#{auto.cantKm}" />
+											</p:column>
+
+											<p:column headerText="#{msgs.label_autoColor}">
+												<h:outputText value="#{auto.color}" />
+											</p:column>
+											
+											<p:column headerText="#{msgs.label_estadoNombre}">
+												<h:outputText value="#{auto.estado.nombre}" />
+											</p:column>
+
+											<p:column headerText="#{msgs.labelActions}">
+												<p:commandButton icon="fa fa-edit Fs15"
+													update="autoTabView"
+													styleClass="BlueTextButton CyanModena "
+													action="#{autoBean.editAuto}">
+													<f:setPropertyActionListener value="#{auto}"
+														target="#{autoBean.selectedAuto}" />
+												</p:commandButton>
+												<p:commandButton icon="fa fa-close Fs15"
+													update="autoTabView"
+													styleClass="BlueTextButton CyanModena "
+													action="#{autoBean.delete}" >
+													<f:setPropertyActionListener value="#{auto}"
+														target="#{autoBean.selectedAuto}" />
+												</p:commandButton>
+											</p:column>
+
+										</p:dataTable>
+									</h:form>
+								</p:tab>
+							</p:tabView>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </ui:define>
+ </ui:composition>
+</html>
