@@ -10,7 +10,7 @@
 		<h:panelGroup>
 			<h:form prependId="false">
 				<div class="ui-fluid">
-					<div class="Container50 Responsive50">
+					<div class="Container100 Responsive100">
 						<div class="ContainerIndent">
 							<h2 class="BigTopic">#{msgs.labelData}</h2>
 							<p:panelGrid columns="1" styleClass="ui-panelgrid-blank"
@@ -49,7 +49,7 @@
 							</p:panelGrid>
 						</div>
 					</div>
-					<div class="Container50 Responsive50">
+					<div class="Container100 Responsive100">
 						<div class="ContainerIndent">
 							<h2 class="BigTopic">Roles</h2>
 							<p:selectManyCheckbox layout="responsive" columns="3" value="#{userBean.rolesName}"  >
@@ -62,7 +62,7 @@
 
 					<div class="Wid50 Fright Responsive50">
 						<p:commandButton styleClass="CyanButton" value="#{msgs.labelSave}" action="#{userBean.update}"
-							update="userTabView"></p:commandButton>
+							update="userTabView" ajax="false"></p:commandButton>
 					</div>
 				</div>
 			</h:form>

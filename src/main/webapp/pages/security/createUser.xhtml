@@ -10,23 +10,23 @@
 		<h:panelGroup>
 			<h:form prependId="false">
 				<div class="ui-fluid">
-					<div class="Container50 Responsive50">
+					<div class="Container100 Responsive100">
 						<div class="ContainerIndent">
 							<h2 class="BigTopic">#{msgs.labelData}</h2>
 							<p:panelGrid columns="1" styleClass="ui-panelgrid-blank"
 								layout="grid">
 								<p:outputLabel value="Nombre completo" for="fullname" />
-								<p:inputText id="fullname" value="#{userBean.user.fullname}"></p:inputText>
+								<p:inputText id="fullname" value="#{userBean.user.fullname}" required="true"></p:inputText>
 
 								<p:outputLabel value="#{msgs.label_username}" for="username" />
-								<p:inputText id="username" value="#{userBean.user.username}"></p:inputText>
+								<p:inputText id="username" value="#{userBean.user.username}" required="true"></p:inputText>
 
 								<p:outputLabel value="#{msgs.label_password}" for="password" />
-								<p:password id="password" value="#{userBean.user.password}" feedback="true"></p:password>
+								<p:password id="password" value="#{userBean.user.password}" feedback="true" required="true"></p:password>
 								
 								<p:outputLabel value="Email" for="email" />
 								<h:panelGroup>
-								<p:inputText id="email" value="#{userBean.user.email}" validatorMessage="Email is not valid">
+								<p:inputText id="email" value="#{userBean.user.email}" validatorMessage="Email is not valid" required="true">
 									<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 								</p:inputText>
 								<p:message for="email" display="tooltip"></p:message>
@@ -35,7 +35,7 @@
 							</p:panelGrid>
 						</div>
 					</div>
-					<div class="Container50 Responsive50">
+					<div class="Container100 Responsive100">
 						<div class="ContainerIndent"> 
 							<h2 class="BigTopic">#{msgs.label_Rol}</h2>
 							<p:selectManyCheckbox layout="responsive" columns="3" value="#{userBean.rolesName}"  >
@@ -47,7 +47,7 @@
 					</div>
 					<div class="Separator"></div>
 					
-					<div class="Wid50 Fright Responsive50"><p:commandButton styleClass="CyanButton" value="#{msgs.labelSave}" action="#{userBean.save}" update="userTabView"></p:commandButton></div>
+					<div class="Wid100 Fright Responsive100"><p:commandButton styleClass="CyanButton" value="#{msgs.labelSave}" action="#{userBean.save}" update="userTabView" ajax="false"></p:commandButton></div>
 				</div>
 			</h:form>
 

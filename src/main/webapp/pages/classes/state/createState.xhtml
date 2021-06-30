@@ -10,7 +10,7 @@
 		<h:panelGroup>
 			<h:form prependId="false">
 				<div class="ui-fluid">
-					<div class="Container50 Responsive50">
+					<div class="Container100 Responsive100">
 						<div class="ContainerIndent">
 							<h2 class="BigTopic">#{msgs.labelData}</h2>
 							<p:panelGrid columns="1" styleClass="ui-panelgrid-blank"
@@ -24,8 +24,8 @@
 					</div>
 					<div class="Separator"></div>
 					
-					<div class="Wid50 Fright Responsive50"><p:commandButton styleClass="CyanButton"  value="#{msgs.labelSave}" 
-					action="#{estadoBean.save}" update="estadoTabView"></p:commandButton></div>
+					<div class="Wid100 Fright Responsive100"><p:commandButton styleClass="CyanButton"  value="#{msgs.labelSave}" 
+					action="#{estadoBean.save}" update="estadoTabView" ajax="false"></p:commandButton></div>
 				</div>
 			</h:form>
 
