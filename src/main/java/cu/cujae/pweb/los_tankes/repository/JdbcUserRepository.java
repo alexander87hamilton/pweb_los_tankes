@@ -1,5 +1,6 @@
 package cu.cujae.pweb.los_tankes.repository;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,10 +70,17 @@ public class JdbcUserRepository implements UserRepository{
 		mapSqlParameterSource.addValue("fullname", user.getfullname());
 		mapSqlParameterSource.addValue("email", user.getEmail());
 		mapSqlParameterSource.addValue("password", user.getPassword());
-		int a= namedParameterJdbcTemplate.update(
+		int a = namedParameterJdbcTemplate.update(
 				"INSERT INTO \"user\" (username, fullname, email, password) VALUES (:username, :fullname, :email, :password)",
 				mapSqlParameterSource);		
-		
+		for(int i = 0; i < user.getRoles().size(); i++) {
+			mapSqlParameterSource = new MapSqlParameterSource();
+			mapSqlParameterSource.addValue("username", user.getUsername());
+			mapSqlParameterSource.addValue("idrole", user.getRoles().get(i).getId());
+			namedParameterJdbcTemplate.update(
+					"INSERT INTO public.user_role (user_id, role_id) VALUES ((SELECT \"id\" FROM public.user  WHERE \"username\" = :username), :idrole)", mapSqlParameterSource);
+		}
+			
 		return a;
 	}
 	
@@ -84,7 +92,7 @@ public class JdbcUserRepository implements UserRepository{
 			mapSqlParameterSource = new MapSqlParameterSource();
 			mapSqlParameterSource.addValue("idrole", user.getRoles().get(i));
 			namedParameterJdbcTemplate.update(
-					"INSERT INTO public.user_role (user_id, role_id) VALUES (:user_id, :idrole", mapSqlParameterSource);
+					"INSERT INTO public.user_role (user_id, role_id) VALUES (:user_id, :idrole)", mapSqlParameterSource);
 		}		
 	}
 
@@ -106,6 +114,9 @@ public class JdbcUserRepository implements UserRepository{
 
 	@Override
 	public int deleteById(Long id) {
+		jdbcTemplate.update(
+				"DELETE from public.user_role WHERE user_id = ?",
+				id);
 		return jdbcTemplate.update(
 				"DELETE from public.user WHERE id = ?",
 				id);

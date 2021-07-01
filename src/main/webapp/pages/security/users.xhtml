@@ -3,21 +3,23 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-<ui:composition template="/pages/template/layout.xhtml">
+	xmlns:p="http://primefaces.org/ui"	>
+<ui:composition template="/pages/template/layout.xhtml" rendered="#{p:ifAnyGranted('ADMIN')}">
 
 	<ui:define name="subheader">
         Lista de usuarios
     </ui:define>
 	<ui:define name="content">
 
-		<div class="Container100">
+ <p:card rendered="#{p:ifAnyGranted('ADMIN')}">
+
+        <div class="Container100" >
 			<div class="ContainerIndent">
 				<div class="Card ShadowEffect">
 					<div class="Container100">
 						<div class="ContainerIndent">
 							<p:tabView id="userTabView" binding="#{userBean.tabUsers}"
-								activeIndex="#{userBean.activeIndexTab}">
+								activeIndex="#{userBean.activeIndexTab}" >
 								<p:ajax event="tabClose" listener="#{userBean.onTabClose}" />
 								<p:tab title="#{msgs.label_listUser}">
 									<h:form>
@@ -75,7 +77,13 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		   </div>
+		</p:card>
+		<p:card rendered="#{!p:ifAnyGranted('ADMIN')}">
+		<br></br><br></br><br></br><br></br><br></br><br></br>
+		   <div class=" Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter"> No esta autorizado para acceder a esta ruta <p:link href="/welcome"> GO to Welcome </p:link> </div>
+		 <br></br><br></br><br></br><br></br><br></br><br></br>
+		</p:card>
   </ui:define>
 </ui:composition>
 </html>

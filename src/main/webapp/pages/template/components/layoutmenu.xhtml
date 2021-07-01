@@ -14,7 +14,7 @@
 						url="/security-users" />
 				</p:submenu>
 				<p:submenu id="rm_sm2" label="#{msgs.label_gestionarClases}"
-					icon="pi pi-list">
+					icon="pi pi-list" rendered="#{p:ifAnyGranted('PLANNER') || p:ifAnyGranted('ADMIN')}">
 					<p:menuitem id="rm_lnk2211" value="#{msgs.label_listPais}"
 						icon="fa fa-globe" url="/country-countries" />
 					<p:menuitem id="rm_lnk2212" value="#{msgs.label_listFormaPago}"

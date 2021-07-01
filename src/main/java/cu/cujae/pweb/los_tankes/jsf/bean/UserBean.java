@@ -109,7 +109,7 @@ public class UserBean {
 				ApiRestMapper<Role> apiRestMapper = new ApiRestMapper<>();
 				int rolId2=Integer.parseInt(rolesName.get(i).toString());
 				Long rolId=(long) rolId2;
-				String response2 = (String)restService.GET("/api/role/role/"+ rolId, params, String.class).getBody();
+				String response2 = (String)restService.GET("/api/role/role/" + rolId, params, String.class).getBody();
 				Role r = (apiRestMapper.mapOne(response2, Role.class));				
 				user.getRoles().add(r);
 			}

@@ -38,11 +38,10 @@
 					<div class="Container100 Responsive100">
 						<div class="ContainerIndent"> 
 							<h2 class="BigTopic">#{msgs.label_Rol}</h2>
-							<p:selectManyCheckbox layout="responsive" columns="3" value="#{userBean.rolesName}"  >
+							<p:selectManyCheckbox layout="responsive" columns="3" value="#{userBean.rolesName}" >
 								<f:selectItems value="#{userBean.rol}" var="rol" itemLabel="#{rol.roleName}"
 								 itemValue="#{rol.id}" />
-
-							</p:selectManyCheckbox>
+                            </p:selectManyCheckbox>
 						</div>
 					</div>
 					<div class="Separator"></div>
