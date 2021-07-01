@@ -29,10 +29,15 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import cu.cujae.pweb.los_tankes.domain.Auto;
+import cu.cujae.pweb.los_tankes.domain.CantContratosXChofer;
+import cu.cujae.pweb.los_tankes.domain.Chofer;
+import cu.cujae.pweb.los_tankes.domain.ContractXTourist;
 import cu.cujae.pweb.los_tankes.domain.Contrato;
 import cu.cujae.pweb.los_tankes.domain.Estado;
 import cu.cujae.pweb.los_tankes.domain.Marca;
 import cu.cujae.pweb.los_tankes.domain.Modelo;
+import cu.cujae.pweb.los_tankes.domain.Pais;
+import cu.cujae.pweb.los_tankes.domain.Turista;
 import cu.cujae.pweb.los_tankes.service.ModeloService;
 import cu.cujae.pweb.los_tankes.service.ModeloServiceImpl;
 import cu.cujae.pweb.los_tankes.util.ApiRestMapper;
@@ -267,6 +272,78 @@ public class ContratoBean {
 		}
 
 		return enc;
+	}
+	
+	public List<ContractXTourist> getContractXTourist () throws IOException
+	{
+		List<ContractXTourist> finalList = new ArrayList<ContractXTourist>();
+
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		ApiRestMapper<Turista> apiRestMapper = new ApiRestMapper<>();
+		String response = (String)restService.GET("/api/v9/turista", params, String.class).getBody();
+
+		List<Turista> tourist = apiRestMapper.mapList(response, Turista.class);
+		Iterator<Turista> i = tourist.iterator();
+
+		while (i.hasNext()) {
+			Turista turista = (Turista) i.next();
+		    finalList.add(new ContractXTourist(turista.getNoPasaporte(), findContractByTourist(turista.getNoPasaporte()).size(),turista.getNombre()));
+
+		}
+		return finalList;
+	}
+	
+	public List<Contrato> findContractByTourist (String idtourist) throws IOException
+	{
+		List<Contrato> ContractByTourist = new ArrayList<Contrato>();
+		Iterator<Contrato> i = getContratoList().iterator();
+
+		while(i.hasNext())
+		{
+			Contrato t = i.next();
+
+			if(t.getTurista().getNoPasaporte().equals(idtourist))
+			{
+				ContractByTourist.add(t);
+			}
+		}
+
+		
+		return ContractByTourist;
+	}
+	public List<CantContratosXChofer> getCantContratosXChofer() throws IOException
+	{
+		List<CantContratosXChofer> finalList = new ArrayList<CantContratosXChofer>();
+
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		ApiRestMapper<Chofer> apiRestMapper = new ApiRestMapper<>();
+		String response = (String)restService.GET("/api/v6/chofer", params, String.class).getBody();
+
+		List<Chofer> driver = apiRestMapper.mapList(response, Chofer.class);
+		Iterator<Chofer> i = driver.iterator();
+
+		while (i.hasNext()) {
+			Chofer chofer = (Chofer) i.next();
+			finalList.add(new CantContratosXChofer(chofer.getId(), findContractByDriver(chofer.getId()).size(), chofer.getNombre()));
+
+		}
+		return finalList;
+	}
+	
+	 public List<Contrato> findContractByDriver(String idDriver) throws IOException
+	{
+		List<Contrato> ContractByDriver = new ArrayList<Contrato>();
+		Iterator<Contrato> i = getContratoList().iterator();
+
+		while(i.hasNext())
+		{
+			Contrato t = i.next();
+
+			if(t.getChofer().getId().equals(idDriver) )
+				ContractByDriver.add(t);
+		}
+
+		return ContractByDriver;
 	}
 
 	public void setContratoList(List<Contrato> contratoList) {

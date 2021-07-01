@@ -30,6 +30,8 @@ public class UrlRewriteConfigurationProvider extends HttpConfigurationProvider{
 				.addRule(Join.path("/contract-contracts").to("/pages/classes/contract/contracts.jsf"))
 				.addRule(Join.path("/touristsByCountry").to("/pages/reports/touristsByCountry.jsf"))
 				.addRule(Join.path("/carsByBrand").to("/pages/reports/carsByBrand.jsf"))
+				.addRule(Join.path("/contractByTourist").to("/pages/reports/ContractxTourist.jsf"))
+				.addRule(Join.path("/contractByDriver").to("/pages/reports/ContractxChofer.jsf"))
 				;
 
 	}
