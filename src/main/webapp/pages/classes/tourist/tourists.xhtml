@@ -10,7 +10,7 @@
         #{msgs.label_listTurista}
     </ui:define>
 	<ui:define name="content">
-
+ <p:card rendered="#{p:ifAnyGranted('ADMIN') || p:ifAnyGranted('PLANNER')}">
 		<div class="Container100">
 			<div class="ContainerIndent">
 				<div class="Card ShadowEffect  ">
@@ -98,6 +98,12 @@
 				</div>
 			</div>
 		</div>
+		</p:card>
+		<p:card rendered="#{!(p:ifAnyGranted('ADMIN') || p:ifAnyGranted('PLANNER'))}">
+		<br></br><br></br><br></br><br></br><br></br><br></br>
+		   <div class=" Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter"> No esta autorizado para acceder a esta ruta <p:link href="/welcome"> GO to Welcome </p:link> </div>
+		 <br></br><br></br><br></br><br></br><br></br><br></br>
+		</p:card>
 	</ui:define>
 </ui:composition>
 </html>
