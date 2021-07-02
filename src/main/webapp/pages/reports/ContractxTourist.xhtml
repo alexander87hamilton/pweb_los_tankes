@@ -7,7 +7,7 @@
 <ui:composition template="/pages/template/layout.xhtml">
 
 	<ui:define name="subheader">
-        #{msgs.label_cantidadAutosXMarca}
+        #{msgs.label_cantidadContratosXTurista}
     </ui:define>
 	<ui:define name="content">
 
@@ -17,7 +17,7 @@
 					<div class="Container100">
 						<div class="ContainerIndent">
 							<p:tabView id="ContractXTouristTabView" >
-								<p:tab title="#{msgs.label_cantidadAutosXMarca}">
+								<p:tab title="#{msgs.label_cantidadContratosXTurista}">
 									<h:form>
 										<div class="EmptyBox30"></div>
 										<p:dataTable id="tbl1" var="contractXTourist" value="#{contratoBean.contractXTourist}"
